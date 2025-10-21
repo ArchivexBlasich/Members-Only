@@ -1,4 +1,4 @@
-import './config.js';
+import './config';
 import express from 'express';
 import path from 'node:path';
 
@@ -15,5 +15,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(PORT, (error) => {
   if (error) throw error;
 
-  console.log(`Server listening. http://localhost:${PORT}`);
+  console.warn(`Server listening. http://localhost:${PORT}`);
 });
