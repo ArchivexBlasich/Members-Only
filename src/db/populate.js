@@ -1,7 +1,8 @@
 #! /usr/bin-env node
-import '../config.js';
+import '../configs/config.js';
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
+import { exec } from 'child_process';
 
 console.warn(process.env.DB_URL);
 
@@ -108,6 +109,22 @@ async function main() {
     await client.end();
     console.warn('Client disconnected.');
   }
+
+  console.warn('Creating session table...');
+  const dbName = process.env.DB_URL.split('/').pop();
+  const command = `psql ${dbName} < node_modules/connect-pg-simple/table.sql`;
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing command: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`Command stderr: ${stderr}`);
+      return;
+    }
+    console.warn(`Command stdout: \n${stdout}`);
+  });
 }
 
 main();
