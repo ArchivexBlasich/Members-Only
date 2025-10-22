@@ -1,5 +1,4 @@
 #! /usr/bin-env node
-// eslint-disable-next-line import/extensions
 import '../config.js';
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';

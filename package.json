@@ -8,7 +8,7 @@
     "lint:fix": "eslint . --fix",
     "populate": "node src/db/populate.js",
     "build": "tsc",
-    "dev": "bun run src/index.ts",
+    "dev": "bun run src/app.ts",
     "start": "node dist/app.js"
   },
   "devDependencies": {
