@@ -15,4 +15,6 @@ authRouter.post(
     failureRedirect: '/auth/log-in',
   }),
 );
+authRouter.get('/log-out', Auth.getLogOut);
+
 export { authRouter };

@@ -63,6 +63,16 @@ class Auth {
       res.redirect('/auth/log-in');
     }
   }
+
+  static getLogOut(req: Request, res: Response, next: NextFunction) {
+    req.logout((err) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      res.redirect('/');
+    });
+  }
 }
 
 export { Auth };

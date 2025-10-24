@@ -8,6 +8,11 @@
 <body>
   <h1>WELCOME to The 90th Minute</h1>
   <h2>Here we can discuss about football</h2>
+  <% if (isAuth) { %>
+    <a href="/auth/log-out">Log out</a>
+  <% } else { %>
+    <a href="/auth/log-in">Log in</a>
+  <% } %>
 
   <h2>Want to see who and when send a message? <a href="/membership">Join the club</a></h2>
 
