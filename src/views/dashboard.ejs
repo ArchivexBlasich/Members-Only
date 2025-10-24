@@ -10,5 +10,9 @@
   <h2>Here we can discuss about football</h2>
 
   <h2>Want to see who and when send a message? <a href="/membership">Join the club</a></h2>
+
+  <% if (isAuth) { %>
+    <a href="/new-message">Create New Message</a>
+  <% } %>
 </body>
 </html>

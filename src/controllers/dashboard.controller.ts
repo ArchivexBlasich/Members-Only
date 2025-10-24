@@ -1,9 +1,19 @@
 import { type Request, type Response } from 'express';
-import { RENDER } from '../models';
+import { RENDER, type AuthenticatedRequest } from '../models';
+import { isAuth } from '../../utils/isAuth';
 
 class Dashboard {
   static get(req: Request, res: Response) {
-    res.render(RENDER.DASHBOARD);
+    const authRequest = req as AuthenticatedRequest;
+
+    console.warn(authRequest.user);
+
+    res.render(
+      RENDER.DASHBOARD,
+      {
+        isAuth: isAuth(authRequest),
+      },
+    );
   }
 }
 

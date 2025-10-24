@@ -73,3 +73,23 @@ export const findUserById = async (id: number): Promise<User | undefined> => {
     throw new Error('Database query failed');
   }
 };
+
+export const updateUserRol = async (id: number, role: Role) => {
+  const updateUserRolQuery = `
+  UPDATE "user"
+  SET role_id = (
+    SELECT id
+    FROM role
+    WHERE name = $1
+  )
+  WHERE id = $2;
+
+  `;
+
+  try {
+    await pool.query(updateUserRolQuery, [role, id]);
+  } catch (error) {
+    console.error(`[DB Error] Failed to update user rol: ${id} ${role}`, error);
+    throw new Error('Database query failed');
+  }
+};

@@ -1,9 +1,7 @@
 import { Router } from 'express';
-import { Dashboard, Auth } from '../controllers';
+import { Dashboard } from '../controllers';
 
 const dashboardRouter = Router();
-
-dashboardRouter.use(Auth.isAuth);
 
 dashboardRouter.get('/', Dashboard.get);
 

@@ -33,7 +33,7 @@ export const authSchema = pipe(
 
 export type User = Omit<InferInput<typeof authSchema>, 'confirm_password'> & {
   id: number;
-  rol: Role;
+  role: Role;
 };
 
 export const loginSchema = object({

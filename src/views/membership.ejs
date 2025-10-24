@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 90th Minute</title>
+</head>
+<body>
+
+  <%- include("./partials/error") %>
+
+  <form action="/membership" method="post">
+    <label for="membershipCode">Membership Code: </label>
+    <input type="text" id="membershipCode" name="code" required>
+
+    <button type="submit">Send</button>
+  </form>
+</body>
+</html>
