@@ -14,5 +14,18 @@
   <% if (isAuth) { %>
     <a href="/new-message">Create New Message</a>
   <% } %>
+
+  <% if (messages) { %>
+    <% for(const message of messages) { %>
+      <article>
+        <h3>Title: <%= message.title %></h3>
+        <p><%= message.content %></p>
+        <% if (isAuth) { %>
+          <h5>Author: <%= message.author %>, Date: <%= formatTimestamp(message.publish_date) %></h5>
+        <% } else { %>
+          <h5>Author: Anonymous, Date: - </h5>
+        <% } %>
+      </article>
+  <% }} %>
 </body>
 </html>

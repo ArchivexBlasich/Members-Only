@@ -3,7 +3,7 @@ import { safeParse } from 'valibot';
 import {
   membershipSchema, RENDER, Role, type AuthenticatedRequest,
 } from '../models';
-import { isAuth } from '../../utils/isAuth';
+import { isAuth } from '../utils/isAuth';
 import { updateUserRol } from '../db/queries';
 
 class Membership {

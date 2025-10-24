@@ -101,13 +101,31 @@ export const updateUserRol = async (id: number, role: Role) => {
     WHERE name = $1
   )
   WHERE id = $2;
-
   `;
 
   try {
     await pool.query(updateUserRolQuery, [role, id]);
   } catch (error) {
     console.error(`[DB Error] Failed to update user rol: ${id} ${role}`, error);
+    throw new Error('Database query failed');
+  }
+};
+
+export const getAllMessages = async () => {
+  const getAllMessagesQuery = `
+  SELECT 
+    s.title, s.content, s.publish_timestamp as publish_date,
+    CONCAT(u.lastName, ' ', u.firstName) as author
+  FROM message as s
+  JOIN "user" as u
+  ON s.author_id = u.id;
+  `;
+
+  try {
+    const { rows } = await pool.query<Message>(getAllMessagesQuery);
+    return rows;
+  } catch (error) {
+    console.error('[DB Error] Failed to get all messages', error);
     throw new Error('Database query failed');
   }
 };

@@ -20,7 +20,7 @@ class Auth {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password_hash, 10);
       await createUser({ ...req.body, password_hash: hashedPassword });
-      res.redirect('/log-in');
+      res.redirect('/auth/log-in');
     } catch (error) {
       if (error instanceof ConflictError) {
         res.render(RENDER.SIGN_UP, { errors: [{ message: error.message }] });

@@ -12,4 +12,6 @@ export const messageSchema = object({
 
 export type Message = InferInput<typeof messageSchema> & {
   author_id: number;
+  publish_date?: string;
+  author?: string;
 };
