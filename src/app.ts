@@ -46,6 +46,7 @@ app.use(session({
   store: new PgStore({
     pool,
     tableName: 'session',
+    createTableIfMissing: true,
   }),
 }));
 
