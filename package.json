@@ -9,7 +9,7 @@
     "populate": "node src/db/populate.js",
     "build": "tsc",
     "dev": "bun --watch run src/app.ts",
-    "start": "node dist/app.js"
+    "start": "bun run src/app.ts"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
