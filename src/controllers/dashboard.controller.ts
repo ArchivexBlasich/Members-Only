@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express';
 import { RENDER, type AuthenticatedRequest } from '../models';
-import { isAuth } from '../utils/isAuth';
+import { isAdmin, isAuth } from '../utils/isAuth';
 import { getAllMessages } from '../db/queries';
 import { formatTimestamp } from '../utils/formatDate';
 
@@ -14,6 +14,7 @@ class Dashboard {
       RENDER.DASHBOARD,
       {
         isAuth: isAuth(authRequest),
+        isAdmin: isAdmin(authRequest),
         messages,
         formatTimestamp,
       },

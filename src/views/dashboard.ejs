@@ -25,6 +25,14 @@
         <% } else { %>
           <h5>Author: Anonymous, Date: - </h5>
         <% } %>
+        
+        <% if (isAdmin) { %>
+          <form action="/message" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="id" value="<%= message.id %>">
+            <button type="submit">Delete</button>
+          </form>
+        <% } %>
       </article>
   <% }} %>
 </body>

@@ -114,11 +114,11 @@ export const updateUserRol = async (id: number, role: Role) => {
 export const getAllMessages = async () => {
   const getAllMessagesQuery = `
   SELECT 
-    s.title, s.content, s.publish_timestamp as publish_date,
+    m.id, m.title, m.content, m.publish_timestamp as publish_date,
     CONCAT(u.lastName, ' ', u.firstName) as author
-  FROM message as s
+  FROM message as m
   JOIN "user" as u
-  ON s.author_id = u.id;
+  ON m.author_id = u.id;
   `;
 
   try {
@@ -126,6 +126,20 @@ export const getAllMessages = async () => {
     return rows;
   } catch (error) {
     console.error('[DB Error] Failed to get all messages', error);
+    throw new Error('Database query failed');
+  }
+};
+
+export const deleteMessageById = async (id: string) => {
+  const deleteMessageByIdQuery = `
+    DELETE FROM message
+    WHERE id = $1;
+  `;
+
+  try {
+    await pool.query(deleteMessageByIdQuery, [id]);
+  } catch (error) {
+    console.error(`[DB Error] Failed to delete message with ${id}`, error);
     throw new Error('Database query failed');
   }
 };

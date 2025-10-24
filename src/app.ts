@@ -4,8 +4,9 @@ import path from 'node:path';
 import session from 'express-session';
 import pgSession from 'connect-pg-simple';
 import passport from 'passport';
+import methodOverride from 'method-override';
 import {
-  indexRouter, authRouter, dashboardRouter, membershipRouter, newMessageRouter,
+  indexRouter, authRouter, dashboardRouter, membershipRouter, newMessageRouter, messageRouter,
 } from './routes';
 import pool from './db/pool';
 import { initializePassport } from './configs/passport.config';
@@ -25,6 +26,18 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  methodOverride((req: Request, _res: Response) => {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+      const method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
+
+    return undefined;
+  }),
+);
+
 app.use(session({
   secret: process.env.COOKIE_SECRET,
   resave: false,
@@ -44,6 +57,7 @@ app.use('/auth', authRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/membership', membershipRouter);
 app.use('/new-message', newMessageRouter);
+app.use('/message', messageRouter);
 
 app.use((req: Request, res: Response) => {
   res.status(404).send('Sorry, the requested resource was not found.');
