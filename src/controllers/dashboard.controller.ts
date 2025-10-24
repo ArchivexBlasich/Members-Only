@@ -6,8 +6,6 @@ class Dashboard {
   static get(req: Request, res: Response) {
     const authRequest = req as AuthenticatedRequest;
 
-    console.warn(authRequest.user);
-
     res.render(
       RENDER.DASHBOARD,
       {

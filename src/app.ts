@@ -5,7 +5,7 @@ import session from 'express-session';
 import pgSession from 'connect-pg-simple';
 import passport from 'passport';
 import {
-  indexRouter, authRouter, dashboardRouter, membershipRouter,
+  indexRouter, authRouter, dashboardRouter, membershipRouter, newMessageRouter,
 } from './routes';
 import pool from './db/pool';
 import { initializePassport } from './configs/passport.config';
@@ -43,6 +43,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/membership', membershipRouter);
+app.use('/new-message', newMessageRouter);
 
 app.use((req: Request, res: Response) => {
   res.status(404).send('Sorry, the requested resource was not found.');

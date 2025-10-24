@@ -1,5 +1,5 @@
 import pool from './pool';
-import { type User, Role } from '../models';
+import { type User, Role, type Message } from '../models';
 
 export class ConflictError extends Error {
   status: number;
@@ -35,6 +35,24 @@ export const createUser = async (params: Omit<User, 'id' | 'rol'>) => {
     }
 
     throw err;
+  }
+};
+
+export const createMessage = async (params: Message) => {
+  try {
+    const createMessageQuery = `
+      INSERT INTO message (title, content, author_id)
+      VALUES (
+      $1, $2, $3
+    )`;
+    await pool.query(createMessageQuery, [
+      params.title,
+      params.content,
+      params.author_id,
+    ]);
+  } catch (err) {
+    console.error(`[DB Error] Failed to create message, author id: ${params.author_id}`, err);
+    throw new Error('Database query failed');
   }
 };
 

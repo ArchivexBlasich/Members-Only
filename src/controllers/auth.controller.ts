@@ -60,7 +60,7 @@ class Auth {
     if (req.isAuthenticated()) {
       next();
     } else {
-      res.redirect('/');
+      res.redirect('/auth/log-in');
     }
   }
 }
