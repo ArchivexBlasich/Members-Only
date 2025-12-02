@@ -72,6 +72,58 @@ Populate the database:
 bun run populate
 ```
 
+## Deployment with Docker
+
+To deploy the application using Docker, follow these steps:
+
+1.  **Ensure Docker Network exists:**
+    If you don't have a `web_net` Docker network, create it:
+    ```bash
+    docker network create web_net
+    ```
+
+2.  **Add PostgreSQL service to your `docker-compose.yml`:**
+    Make sure your `docker-compose.yml` includes the PostgreSQL service. Here's an example you can add to your existing `docker-compose.yml`:
+
+    ```yaml
+services:
+  postgres:
+    image: postgres:16-bookworm
+    container_name: main_db
+    restart: unless-stopped
+    command: postgres -c shared_buffers=256MB -c max_connections=50
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: default_db
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - web_net
+    ports:
+      - "127.0.0.1:5432:5432"
+
+networks:
+  web_net:
+    external: true
+
+volumes:
+  pg_data:
+    ```
+
+    **Note:** Ensure that the `DB_URL` in your `members-only` service's environment variables matches the PostgreSQL service configuration (e.g., `DB_URL: postgresql://user:password@main_db:5432/db_name`).
+
+3.  **Build and start the Docker containers:**
+    ```bash
+    docker compose up -d --build
+    ```
+
+4.  **Populate the database:**
+    Once the `members-only` container is running, execute the populate script:
+    ```bash
+    docker exec -it members-only bun run populate
+    ```
+
 ## Development
 
 Run in development mode with auto-reload:

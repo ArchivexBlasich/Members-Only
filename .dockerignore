@@ -1,0 +1,8 @@
+node_modules
+bun.lockb
+.git
+.gitignore
+.vscode
+Dockerfile
+*.md
+dist

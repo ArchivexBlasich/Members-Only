@@ -1,0 +1,19 @@
+services:
+  members-only:
+    build: .
+    container_name: members-only
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      - web_net
+    environment:
+      DB_URL: postgresql://user:password@main_db:5432/db_name
+      COOKIE_SECRET: cookie_secret
+      PORT: 8080
+      MEMBER_CODE: MEMBER_CODE
+      ADMIN_PASS: admin_pass
+
+networks:
+  web_net:
+    external: true
